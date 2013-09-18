@@ -2,11 +2,8 @@ RewriteEngine On
 
 # App routing
 #RewriteRule ^$ index.php?dc_action=hello/index [QSA,L]
-
-
-# App routing
-RewriteRule ^$ index.php?dc_action=thread/index [QSA,L]
-
+#RewriteRule ^$ index.php?dc_action=thread/index [QSA,L]
+RewriteRule ^$ index.php?dc_action=thread/start [QSA,L]
 
 
 

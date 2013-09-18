@@ -3,5 +3,5 @@
 	You successfully wrote this comment.
 </p>
 <a href="<?php eh(url('thread/view', array('thread_id' => $thread->id))) ?>">
-	&larr; Back to thread
+	&lArr; Back to thread
 </a>
