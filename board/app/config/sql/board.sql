@@ -14,17 +14,27 @@ title VARCHAR(255) NOT NULL,
 created DATETIME NOT NULL,
 PRIMARY KEY (id)
 )ENGINE=InnoDB;
+
+
 CREATE TABLE IF NOT EXISTS comment (
 id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 thread_id INT UNSIGNED NOT NULL,
+user_id INT UNSIGNED NOT NULL,
 username VARCHAR(255) NOT NULL,
 body TEXT NOT NULL,
 created DATETIME NOT NULL,
 PRIMARY KEY (id),
-INDEX (thread_id, created)
+INDEX (thread_id, user_id, created)
 )ENGINE=InnoDB;
 
+
+CREATE TABLE IF NOT EXISTS information (
+id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+username VARCHAR(255) NOT NULL,
+password VARCHAR(255) NOT NULL,
+PRIMARY KEY (id)
+)ENGINE=InnoDB;
+
+INSERT INTO information SET username='lan', password='padolina';
+INSERT INTO information SET username='ben', password='ten';
 INSERT INTO thread SET title='ABOUT KLAB', created=NOW();
-INSERT INTO comment SET thread_id=1, username='Niño Allan Poe Padolina', body='Can I know what time is it?', created=NOW();
-
-

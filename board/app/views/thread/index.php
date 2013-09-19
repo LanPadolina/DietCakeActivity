@@ -2,7 +2,7 @@
 MAIN PAGE <br> VIEW ALL THREADS HERE
 </center></h1>
 
-		<?php $i = 0; ?>
+		<?php  $i = 0; ?>
 <ul>
   <?php foreach ($threads as $v): ?>
     <li>
