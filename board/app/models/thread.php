@@ -86,39 +86,50 @@ array($this->id, $comment->username, $comment->body)
 
 
 
-		public static function login($username, $password){
+public static function login($username, $password){
 		
 		//echo $username, $password;
 		
 		$login = "";
 		$db = DB::conn();
 		$check = $db->query("SELECT * FROM information WHERE username = '$username'  AND password = '$password' ");
-		
-				
-		if($db->rowCount($check) != 0){
-			return $login=url('thread/index', array($username));
-			//print "success";
 
-		}else{
+
+		if($db->rowCount($check) != 0){
+			return $login=url('thread/start_end', array($username));
+
+			}else{
 			return $login=url('thread/start');
 			//print "error";
-			
+
 		}
-		
-		
 	}
 
  
+ 
+ 
+ 
 public static function register($user,$pass)
 {
+if (!$user->validate()) {
+throw new ValidationException('invalid information');
+}
+
 
 $db = DB::conn();
 $db->begin();
 $db->query("INSERT INTO information SET username = ?, password = ? " , array($user->username, $pass->password));
-
 $db->commit();
 }
 
 	
+	
+	
+	
+	
+	
+	
+	
+
 	
 }

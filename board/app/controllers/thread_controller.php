@@ -91,9 +91,9 @@ $this->set(get_defined_vars());
 public function start()
 {
 
-$username = Param::get('username');
-$password = Param::get('password');
-$login = Thread::login($username, $password);
+$name = Param::get('username');
+$word = Param::get('password');
+$login = Thread::login($name, $word);
 
 $this->set(get_defined_vars());
 
@@ -107,30 +107,31 @@ $this->set(get_defined_vars());
 
 public function register()
 {
-$page = Param::get('page_next', 'register');
 
-$user = new Thread;
-$pass = new Thread;
+$thread = new Thread;
+$username = new Login;
+
+$page = Param::get('page_next', 'register');
 
 switch ($page) {
 case 'register':
 break;
 
 case 'register_end':
-$user->username = Param::get('username');
-$pass->password = Param::get('password');
+	$username->username = Param::get('username');
+	$username->password = Param::get('password');
 
 try {
-	$user->register($user,$pass);
+		$thread->register($username,$username);
 	} catch (ValidationException $e) {
-	$page ='register';
+		$page ='register';
 	}
-
 break;
+
 
 default:
-throw new NotFoundException("{$page} is not found");
-break;
+	throw new NotFoundException("{$page} is not found");
+	break;
 }
             $this->set(get_defined_vars());
 			$this->render($page);
