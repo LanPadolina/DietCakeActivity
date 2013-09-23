@@ -1,11 +1,11 @@
 
 
 
-<h2>HAVE A GOOD DAY "<?php eh($username) ?>"!</h2>
+<h2>HAVE A GOOD DAY "<?php echo($username) ?>"!</h2>
 
 
 <p class="alert alert-success">
-	You have successfully login your account <?php echo $username?> click proceed !
+	You have successfully login your account <?php echo $username?> click proceed!
 </p>
 
 

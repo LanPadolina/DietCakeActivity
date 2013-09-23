@@ -2,18 +2,19 @@
 class ThreadController extends AppController
 {
 
-
+// Controller for index
 public function index()
 {
-// TODO: Get all threads
+// Get all threads
 $threads = Thread::getAll();
 $this->set(get_defined_vars());
 }
 
 
-
+// Controller for create threads
 public function create()
 {
+
 $thread = new Thread;
 $comment = new Comment;
 $page = Param::get('page_next', 'create');
@@ -40,7 +41,7 @@ $this->render($page);
 
 
 
-
+//controller for writing comments
 public function write()
 {
 $thread = Thread::get(Param::get('thread_id'));
@@ -70,6 +71,8 @@ $this->render($page);
 
 
 
+
+//controller for viewing comments in a a thread
 public function view()
 {
 $thread = Thread::get(Param::get('thread_id'));
@@ -87,7 +90,7 @@ $this->set(get_defined_vars());
 
 
 
-
+//controller for the start page or the login page
 public function start()
 {
 
@@ -104,7 +107,7 @@ $this->set(get_defined_vars());
 
 
 
-
+//controller for the register page
 public function register()
 {
 
@@ -143,38 +146,10 @@ default:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-public function starting()
-{
-            $this->set(get_defined_vars());
-}
-
+//controller for the end page of the login page
 public function start_end()
 {
 			$username = Param::get('username');
-
             $this->set(get_defined_vars());
 }
 

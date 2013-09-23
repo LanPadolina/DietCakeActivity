@@ -13,7 +13,7 @@ public $validation = array(
 );
 
 
-
+//model for creating threads
 public function create(Comment $comment)
 {
 $this->validate();
@@ -35,7 +35,7 @@ $db->commit();
 
 
 
-
+//model for getting the
 	public static function get($id)
 	{
 	$db = DB::conn();
@@ -43,6 +43,10 @@ $db->commit();
 	return new self($row);
 	}
 
+	
+	
+	
+//model for getting all the threads for viewing
 public static function getAll()
  {
  $threads = array();
@@ -56,6 +60,8 @@ public static function getAll()
  
  
 
+ 
+ //model for getting the comments in a thread
  public function getComments()
 {
 $comments = array();
@@ -71,6 +77,8 @@ return $comments;
 }
  
  
+ 
+//model for writing the comments
  public function write(Comment $comment)
 {
 if (!$comment->validate()) {
@@ -85,11 +93,10 @@ array($this->id, $comment->username, $comment->body)
 
 
 
-
+//model for the login page or start page
 public static function login($username, $password){
 		
-		//echo $username, $password;
-		
+				
 		$login = "";
 		$db = DB::conn();
 		$check = $db->query("SELECT * FROM information WHERE username = '$username'  AND password = '$password' ");
@@ -101,14 +108,13 @@ public static function login($username, $password){
 			}else{
 			return $login=url('thread/start');
 			//print "error";
-
 		}
 	}
 
  
  
  
- 
+ //model for register page
 public static function register($user,$pass)
 {
 if (!$user->validate()) {
@@ -125,9 +131,7 @@ $db->commit();
 	
 	
 	
-	
-	
-	
+		
 	
 	
 
