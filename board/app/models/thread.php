@@ -88,7 +88,7 @@ class Thread extends AppModel
 	public static function login($username, $password){		
 		$login = "";
 		$db = DB::conn();
-		$check = $db->query("SELECT * FROM information WHERE username = '$username'  AND password = '$password' ");
+		$check = $db->query("SELECT * FROM information WHERE username = ? AND password = ?" , array($username, $password));
 
 			if($db->rowCount($check) != 0){
 				return $login=url('thread/start_end',array('name'=>$username));
