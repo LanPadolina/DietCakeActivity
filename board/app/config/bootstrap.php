@@ -23,10 +23,10 @@ require_once VENDOR_DIR.'Pagerfanta/PagerfantaInterface.php';
 require_once VENDOR_DIR.'Pagerfanta/Pagerfanta.php';
 
 
-// lib
-require_once LIB_DIR . 'log.php';
-require_once LIB_DIR . 'router.php';
-require_once LIB_DIR . 'database.php';
+// conf
+require_once CONFIG_DIR . 'log.php';
+require_once CONFIG_DIR . 'router.php';
+require_once CONFIG_DIR . 'database.php';
 
 // helpers
 require_once HELPERS_DIR . 'html_helper.php';
