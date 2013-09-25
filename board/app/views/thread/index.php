@@ -24,6 +24,13 @@ Total Number of Threads = <?php echo $i ?>
 <?phpecho $username ?>
 <hr>
 
+<div class="div-pagination">
+    <div class="pagerfanta">
+        <?php echo $html; ?>
+    </div>
+</div>
+
+
 
 <center>
 <a class="btn btn-large btn-primary" href="<?php eh(url('thread/create', array('name'=>$username))) ?>">CREATE THREAD</a>

@@ -17,7 +17,7 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">Activity Regarding DietCake Introduction</a>
+          <a class="brand" href="<?php eh(url('thread/index', array('name'=>$username))) ?>">Activity Regarding DietCake Introduction</a>
         </div>
       </div>
     </div>

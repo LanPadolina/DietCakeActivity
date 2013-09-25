@@ -25,3 +25,4 @@ FileETag none
 <IfModule mod_deflate.c>
 AddOutputFilterByType DEFLATE text/html
 </IfModule>
+

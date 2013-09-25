@@ -1,46 +1,37 @@
 <?php
 class ThreadController extends AppController
 {
+	//controller for the main page that has pagination for threads
+    public function index()
+    {
+		$username = Param::get('name');
+        $threads = Thread::getAll();
 
+        $adapter = new \Pagerfanta\Adapter\ArrayAdapter($threads);
+        $paginator = new \Pagerfanta\Pagerfanta($adapter);
+        $paginator->setMaxPerPage(5);
+        $paginator->setCurrentPage(Param::get('page', 1));
+        $threads = Thread::objectToarray($paginator);
 
-	// Controller for index
-	public function index()
+        $view = new \Pagerfanta\View\DefaultView();
+        $options = array('proximity' => '3',
+		'previous_message'=>'← LAST PAGE ',
+		'next_message'=> ' NEXT PAGE →'
+		);
+		
+        $html = $view->render($paginator,'routeGenerator', $options);
+
+        $this->set(get_defined_vars());
+    }
+
+ 	//controller for viewing comments in a a thread
+	public function view()
 	{
 		$username = Param::get('name');
-		$threads = Thread::getAll();
+		$thread = Thread::get(Param::get('thread_id'));
+		$comments = $thread->getComments();
 		$this->set(get_defined_vars());
 	}
-
-
-	// Controller for create threads
-	public function create()
-	{
-		$username = Param::get('name');
-		$thread = new Thread;
-		$comment = new Comment;
-		$page = Param::get('page_next', 'create');
-			
-			switch ($page) {
-				case 'create':
-				break;	
-				case 'create_end':
-					$thread->title = Param::get('title');
-					$comment->username = Param::get('name');
-					$comment->body = Param::get('body');
-						try {
-							$thread->create($comment);
-						} catch (ValidationException $e) {
-							$page = 'create';
-						}
-				break;
-				default:
-					throw new NotFoundException("{$page} is not found");
-				break;
-			}
-		$this->set(get_defined_vars());
-		$this->render($page);
-	}
-
 
 	//controller for writing comments
 	public function write()
@@ -71,18 +62,37 @@ class ThreadController extends AppController
 	$this->render($page);
 	}
 
-
-	//controller for viewing comments in a a thread
-	public function view()
+	// Controller for create threads
+	public function create()
 	{
 		$username = Param::get('name');
-		$thread = Thread::get(Param::get('thread_id'));
-		$comments = $thread->getComments();
+		$thread = new Thread;
+		$comment = new Comment;
+		$page = Param::get('page_next', 'create');
+			
+			switch ($page) {
+				case 'create':
+				break;	
+				case 'create_end':
+					$thread->title = Param::get('title');
+					$comment->username = Param::get('name');
+					$comment->body = Param::get('body');
+						try {
+							$thread->create($comment);
+						} catch (ValidationException $e) {
+							$page = 'create';
+						}
+				break;
+				default:
+					throw new NotFoundException("{$page} is not found");
+				break;
+			}
 		$this->set(get_defined_vars());
+		$this->render($page);
 	}
-
-
-	//controller for the start page or the login page
+	
+	
+		//controller for the start page or the login page
 	public function start()
 	{
 		$name = Param::get('username');
@@ -127,6 +137,4 @@ class ThreadController extends AppController
 		$this->set(get_defined_vars());
 	}
 	
-	
-	}
-		
+}
