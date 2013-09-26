@@ -1,12 +1,14 @@
 <?php
+session_start();
 class ThreadController extends AppController
 {
 	//controller for the main page that has pagination for threads
     public function index()
     {
-		$username = Param::get('name');
+		$username = $_SESSION['name']=Param::get('name');
+		
         $threads = Thread::getAll();
-
+	
         $adapter = new \Pagerfanta\Adapter\ArrayAdapter($threads);
         $paginator = new \Pagerfanta\Pagerfanta($adapter);
         $paginator->setMaxPerPage(5);
@@ -14,10 +16,12 @@ class ThreadController extends AppController
         $threads = Thread::objectToarray($paginator);
 
         $view = new \Pagerfanta\View\DefaultView();
-        $options = array('proximity' => '3',
-		'previous_message'=>'← LAST PAGE ',
+        $options = array(
+		'previous_message'=>'← PREVIOUS ',
 		'next_message'=> ' NEXT PAGE →'
 		);
+		
+	
 		
         $html = $view->render($paginator,'routeGenerator', $options);
 
@@ -36,6 +40,8 @@ class ThreadController extends AppController
 	//controller for writing comments
 	public function write()
 	{
+		
+		
 		$username = Param::get('name');
 		$thread = Thread::get(Param::get('thread_id'));
 		$comment = new Comment;

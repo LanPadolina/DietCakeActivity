@@ -16,5 +16,5 @@ return $s;
 //route generator for pagerfanta for pagination
 function routeGenerator($page)
 {
-    return $_SERVER['REDIRECT_URL'].'?page='."$page";
+    return $_SERVER['REDIRECT_URL'].'?page='.$page.'&name='.$_SESSION['name'];
 }

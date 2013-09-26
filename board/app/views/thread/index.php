@@ -1,6 +1,4 @@
-<h4><p align=right>Have a Good Day, <u><?php echo $username ?></u> !
-<a class="btn btn-small btn-primary" href="<?php eh(url('thread/start')) ?>">LOG OUT</a></align></h4>
-
+<h4><p align=right>Have a Good Day, <u><?php echo $username ?></u> !</align></h4>
 
 <h1><center>
 MAIN PAGE <br> VIEW ALL THREADS HERE
@@ -18,11 +16,15 @@ MAIN PAGE <br> VIEW ALL THREADS HERE
     </li>
   <?php endforeach ?>
 </ul>
-
+<center>
 <hr>
 Total Number of Threads = <?php echo $i ?>
-<?phpecho $username ?>
+
+
+
 <hr>
+
+
 
 <div class="div-pagination">
     <div class="pagerfanta">
@@ -32,8 +34,9 @@ Total Number of Threads = <?php echo $i ?>
 
 
 
-<center>
+
 <a class="btn btn-large btn-primary" href="<?php eh(url('thread/create', array('name'=>$username))) ?>">CREATE THREAD</a>
 </center>
 
-		
+
+	

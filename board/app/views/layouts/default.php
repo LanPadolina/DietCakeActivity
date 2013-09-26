@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-7">
     <title>THIS IS MY DIETCAKE<?php ($title) ?></title>
 
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
       body {
-        padding-top: 60px;
+        padding-top: 50px;
       }
     </style>
   </head>
@@ -17,11 +17,20 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="<?php eh(url('thread/index', array('name'=>$username))) ?>">Activity Regarding DietCake Introduction</a>
+          <a class="brand" href="">Activity Regarding DietCake Introduction</a>
+		  <p align=right><a class="btn btn-big btn-primary" href="<?php eh(url('thread/start')) ?>">LOG OUT</a></align>
         </div>
       </div>
     </div>
 
+	
+	
+	
+					
+				
+	
+	
+	
     <div class="container">
 
       <?php echo $_content_ ?>

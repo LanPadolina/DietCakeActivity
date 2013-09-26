@@ -1,3 +1,5 @@
+
+
 <h1>Create a thread</h1>
 
 <?php if ($thread->hasError() || $comment->hasError()): ?>

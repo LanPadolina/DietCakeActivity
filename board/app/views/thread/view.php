@@ -4,11 +4,10 @@
 	<?php foreach ($comments as $k => $v): ?>
 		<div class="comment">
 			<div class="meta">
-				<?php eh($k + 1) ?>: <?php eh($v->username) ?> <?php eh($v->created) ?>
+				<?php eh($k + 1) ?>: USER = "<?php eh($v->username) ?>" &nbsp&nbsp TIME="<?php eh($v->created) ?>"
 			</div>
 			<div>
-				<?php echo readable_text($v->body) ?>
-				<?php $i++; ?>
+				<form class="well"> <?php echo readable_text($v->body) ?>	<?php $i++; ?>	</form>
 			</div>
 		</div>
 	<?php endforeach ?>
