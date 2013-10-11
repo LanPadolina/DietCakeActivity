@@ -21,7 +21,7 @@ class Thread extends AppModel
 		return $threads;
 	}
 
-    //model for getting the
+    //model for getting the threadID
 	public static function get($id)
 	{
 		$db = DB::conn();
@@ -80,30 +80,36 @@ class Thread extends AppModel
 
 	
 	//model for the login page or start page
-	public static function login($username, $password){		
-		$login = "";
-		$db = DB::conn();
-		$check = $db->query("SELECT * FROM information WHERE username = ? AND password = ?" , array($username, $password));
+	public static function login($user,$pass){
 
-			if($db->rowCount($check) != 0){
-				return $login=url('thread/start_end',array('name'=>$username));
-			}else{
-				return $login=url('thread/start');
-			}
+        if (!$user->validate()) {
+            throw new ValidationException('invalid information');
+        }
+
+        $db=DB::conn();
+        $checking = $db->row("SELECT * FROM information WHERE username = ? && password = ?" , array($user->username, $pass->password));
+        if(($checking)!=0){
+            return $page ='start_end';
+        }
+        var_dump($checking);
+
 	}
 
  
 	//model for register page
 	public static function register($user,$pass)
 	{
-			if (!$user->validate()) {
-				throw new ValidationException('invalid information');
-			}
 
-		$db = DB::conn();
-		$db->begin();
-		$db->query("INSERT INTO information SET username = ?, password = ? " , array($user->username, $pass->password));
-		$db->commit();
+        if (!$user->validate()) {
+            throw new ValidationException('invalid information');
+        }
+
+        $db = DB::conn();
+        $db->begin();
+        $db->query("INSERT INTO information SET username = ?, password = ? " , array($user->username, $pass->password));
+
+
+
 	}
 	
 	

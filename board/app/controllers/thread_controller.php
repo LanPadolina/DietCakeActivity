@@ -5,24 +5,20 @@ class ThreadController extends AppController
 	//controller for the main page that has pagination for threads
     public function index()
     {
-		$username = $_SESSION['name']=Param::get('name');
-		
         $threads = Thread::getAll();
-	
+
         $adapter = new \Pagerfanta\Adapter\ArrayAdapter($threads);
         $paginator = new \Pagerfanta\Pagerfanta($adapter);
-        $paginator->setMaxPerPage(5);
+        $paginator->setMaxPerPage(8);
         $paginator->setCurrentPage(Param::get('page', 1));
         $threads = Thread::objectToarray($paginator);
 
         $view = new \Pagerfanta\View\DefaultView();
         $options = array(
-		'previous_message'=>'← PREVIOUS ',
-		'next_message'=> ' NEXT PAGE →'
-		);
-		
-	
-		
+            'previous_message'=>'← PREVIOUS ',
+            'next_message'=> ' NEXT PAGE →'
+        );
+
         $html = $view->render($paginator,'routeGenerator', $options);
 
         $this->set(get_defined_vars());
@@ -31,6 +27,7 @@ class ThreadController extends AppController
  	//controller for viewing comments in a a thread
 	public function view()
 	{
+
 		$username = Param::get('name');
 		$thread = Thread::get(Param::get('thread_id'));
 		$comments = $thread->getComments();
@@ -40,8 +37,7 @@ class ThreadController extends AppController
 	//controller for writing comments
 	public function write()
 	{
-		
-		
+
 		$username = Param::get('name');
 		$thread = Thread::get(Param::get('thread_id'));
 		$comment = new Comment;
@@ -51,7 +47,7 @@ class ThreadController extends AppController
 				case 'write':
 				break;
 				case 'write_end':
-					$comment->username = Param::get('name');
+					$comment->username = $_SESSION['name'];
 					$comment->body = Param::get('body');
 						try {
 							$thread->write($comment);
@@ -81,7 +77,7 @@ class ThreadController extends AppController
 				break;	
 				case 'create_end':
 					$thread->title = Param::get('title');
-					$comment->username = Param::get('name');
+					$comment->username = $_SESSION['name'];
 					$comment->body = Param::get('body');
 						try {
 							$thread->create($comment);
@@ -100,12 +96,33 @@ class ThreadController extends AppController
 	
 		//controller for the start page or the login page
 	public function start()
-	{
-		$name = Param::get('username');
-		$word = Param::get('password');
-		$login = Thread::login($name, $word);
-		$this->set(get_defined_vars());
-	}
+    {
+
+        $username =  $_SESSION['name']= Param::get('username');
+        $thread = new Thread;
+        $logininfo = new Login;
+        $page = Param::get('page_next', 'start');
+
+        switch ($page) {
+            case 'start':
+                break;
+            case 'start_end':
+                $logininfo->username = Param::get('username');
+                $logininfo->password = Param::get('password');
+                try {
+                    $thread->login($logininfo,$logininfo);
+                } catch (ValidationException $e) {
+                    $page ='start';
+                }
+                break;
+            default:
+                throw new NotFoundException("{$page} is not found");
+                break;
+        }
+
+        $this->set(get_defined_vars());
+        $this->render($page);
+    }
 
 
 	//controller for the register page
@@ -131,16 +148,8 @@ class ThreadController extends AppController
 					throw new NotFoundException("{$page} is not found");
 				break;
 			}
-		$this->set(get_defined_vars());
+
+        $this->set(get_defined_vars());
 		$this->render($page);
 	}
-	
-	
-	//controller for the end page of the login page	
-	public function start_end()
-	{	
-		$username = Param::get('name');
-		$this->set(get_defined_vars());
-	}
-	
 }
